@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bcdrive"
+version = "0.1.0"
+description = "End-to-end behavioral cloning for the Udacity self-driving-car simulator (NVIDIA PilotNet-inspired)."
+readme = "README.md"
+requires-python = ">=3.10,<3.14"
+license = { text = "MIT" }
+
+[project.scripts]
+bcdrive = "bcdrive.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+markers = [
+    "simulator: needs the real Udacity simulator running in Autonomous Mode (deselected by default; run with -m simulator)",
+    "slow: trains a model for a few epochs (still CPU-friendly, < 1 min)",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]

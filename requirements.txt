@@ -1,0 +1,21 @@
+# Runtime dependencies. Exact resolved versions are recorded in requirements.lock.txt.
+# Python 3.11 (see ENVIRONMENT_REPORT.md for why not the system 3.13/3.14).
+tensorflow==2.21.0          # CPU build on native Windows; bundles Keras 3
+numpy
+pillow
+matplotlib
+pyyaml
+
+# Udacity simulator (Unity, 2017) speaks Socket.IO protocol rev 4 / Engine.IO rev 3.
+# python-socketio 5.x only accepts Engine.IO rev 4 and rejects the simulator,
+# so the server stack MUST stay on these major versions.
+python-socketio==4.6.1
+python-engineio==3.13.2
+eventlet
+# Needed by the python-socketio 4.x *client*, used as an Engine.IO-v3 test double
+# for the simulator in integration tests.
+requests
+websocket-client
+
+# Development
+pytest

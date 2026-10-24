@@ -1,0 +1,21 @@
+# SMOKE TEST on SYNTHETIC data: verifies the software pipeline in about a minute on CPU.
+# It says nothing about driving ability. Generate the data first:
+#   bcdrive synth --out data/synthetic
+data:
+  sessions: [data/synthetic]
+  min_frames: 100
+
+split:
+  strategy: auto
+  val_fraction: 0.25
+  chunk_size: 50
+  gap: 5
+
+model:
+  architecture: nvidia
+
+train:
+  epochs: 6
+  batch_size: 32
+  early_stopping_patience: 3
+  output_dir: artifacts/experiments

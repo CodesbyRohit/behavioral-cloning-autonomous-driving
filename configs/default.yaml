@@ -1,0 +1,63 @@
+# Default configuration for REAL simulator data. Every key is optional; omitted keys use
+# the defaults in src/bcdrive/config.py. Unknown keys are rejected.
+
+data:
+  sessions: [data/raw]          # each subfolder with a driving_log.csv is one session
+  min_frames: 500
+
+preprocess:                     # verify with: bcdrive dataset inspect  (preprocessing.png)
+  crop_top: 60                  # sky / trees
+  crop_bottom: 25               # bonnet
+  out_height: 66
+  out_width: 200
+  color_space: yuv
+  expected_input_hw: [160, 320] # Udacity simulator camera frames
+
+split:
+  strategy: auto                # session split with >= 3 sessions, else chunked
+  val_fraction: 0.2
+  test_fraction: 0.0
+  chunk_size: 100
+  gap: 10
+  seed: 42
+
+augment:
+  enabled: true
+  use_side_cameras: true
+  side_camera_correction: 0.2   # + for left camera, - for right (positive steering = right)
+  flip_probability: 0.5
+  brightness_probability: 0.5
+  brightness_range: [0.5, 1.2]
+  shift_probability: 0.3
+  max_shift_px: 20
+  steering_per_shift_px: 0.004
+
+balance:
+  enabled: true
+  bins: 21
+  max_per_bin: auto
+
+model:
+  architecture: nvidia
+  activation: elu
+  dropout: 0.3
+
+train:
+  epochs: 20
+  batch_size: 64
+  learning_rate: 0.001
+  early_stopping_patience: 4
+  workers: 4
+  seed: 42
+
+control:
+  target_speed: 12.0            # mph; start conservatively
+  low_speed_target: 6.0         # used with --low-speed
+  max_throttle: 0.6
+  max_brake: 0.3
+  steering_smoothing: 1.0       # 1.0 = no smoothing
+  max_steering_delta: 1.0       # 1.0 = no rate limit
+
+simulator:
+  port: 4567                    # fixed by the simulator binary (ws://127.0.0.1:4567)
+  connect_timeout_s: 300

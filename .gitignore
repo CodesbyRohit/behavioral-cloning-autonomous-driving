@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+
+# Datasets, simulator binaries and generated outputs are never committed by default
+data/
+simulator/
+artifacts/
+!artifacts/README.md
+*.keras
+*.h5
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
